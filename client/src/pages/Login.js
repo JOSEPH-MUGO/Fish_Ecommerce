@@ -89,7 +89,7 @@ const Login = () => {
   return (
     <>
       <Helmet>
-        <title>Login - Ocean's Catch</title>
+        <title>Login - FreshFish</title>
         <meta
           name="description"
           content="Sign in to your Ocean's Catch account to access your profile, orders, and preferences."

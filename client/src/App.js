@@ -23,6 +23,8 @@ import Login from "./pages/Login"
 import Register from "./pages/Register"
 import Contact from "./pages/Contact"
 import AdminDashboard from "./pages/AdminDashboard"
+import ForgotPasswordPage from './pages/ForgotPasswordPage';
+import ResetPasswordPage from './pages/ResetPasswordPage';
 
 function App() {
   return (
@@ -41,6 +43,8 @@ function App() {
                 <Route path="/checkout" element={<Checkout />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+                <Route path="/reset-password" element={<ResetPasswordPage />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route
                   path="/orders"

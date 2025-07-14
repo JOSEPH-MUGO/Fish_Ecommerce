@@ -18,6 +18,8 @@ model User {
   lastName  String
   phone     String?
   role      Role     @default(CUSTOMER)
+  resetToken         String?
+  resetTokenExpiry   DateTime?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

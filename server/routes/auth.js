@@ -5,6 +5,8 @@ const jwt = require("jsonwebtoken")
 const { prisma } = require("../config/database")
 const { validateRegister, validateLogin } = require("../middleware/validation")
 const { auth } = require("../middleware/auth")
+const nodemailer = require("nodemailer")
+const crypto = require("crypto");
 
 const router = express.Router()
 
@@ -118,7 +120,97 @@ router.get("/me", auth, async (req, res) => {
     res.status(500).json({ message: "Server error" })
   }
 })
+// Reset password
+const transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASSWORD,
+  },
+});
 
+// Forgot password route
+router.post('/forgot-password', async (req, res) => {
+  try {
+    const { email } = req.body;
+    const user = await prisma.user.findUnique({ where: { email } });
+
+    if (!user) {
+      // For security, don't reveal if email exists
+      return res.status(200).json({ message: 'Password reset email sent if account exists' });
+    }
+
+    // Generate reset token
+    const resetToken = crypto.randomBytes(32).toString('hex');
+    const resetTokenExpiry = new Date(Date.now() + 3600000); // 1 hour
+
+    await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        resetToken,
+        resetTokenExpiry,
+      },
+    });
+
+    // Send email
+    const resetUrl = `${process.env.CLIENT_URL}/reset-password?token=${resetToken}`;
+    
+    await transporter.sendMail({
+      to: user.email,
+      subject: 'Password Reset Request',
+      html: `
+        <p>You requested a password reset for your FreshFish account.</p>
+        <p>Click this link to reset your password:</p>
+        <a href="${resetUrl}">${resetUrl}</a>
+        <p>This link will expire in 1 hour.</p>
+        <p>If you did not initiate the request. Kindly ignore this message</p>
+      `,
+    });
+
+    res.status(200).json({ message: 'Password reset email sent if account exists' });
+  } catch (error) {
+    console.error('Forgot password error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Reset password route
+router.post('/reset-password', async (req, res) => {
+  try {
+    const { token, newPassword } = req.body;
+
+    // Find user by valid token
+    const user = await prisma.user.findFirst({
+      where: {
+        resetToken: token,
+        resetTokenExpiry: { gt: new Date() },
+      },
+    });
+
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid or expired token' });
+    }
+
+    // Hash new password
+    const saltRounds = 12;
+    const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+
+    // Update user
+    await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        password: hashedPassword,
+        resetToken: null,
+        resetTokenExpiry: null,
+      },
+    });
+
+    res.status(200).json({ message: 'Password reset successful' });
+  } catch (error) {
+    console.error('Reset password error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 // Update user profile
 router.put("/profile", auth, async (req, res) => {
   try {

@@ -1,121 +1,156 @@
 // / client/src/contexts/AuthContext.js
-"use client"
+"use client";
 
-import { createContext, useContext, useState, useEffect } from "react"
-import axios from "axios"
-import { toast } from "react-toastify"
+import { createContext, useContext, useState, useEffect } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
 
-const AuthContext = createContext()
+const AuthContext = createContext();
 
 export const useAuth = () => {
-  const context = useContext(AuthContext)
+  const context = useContext(AuthContext);
   if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider")
+    throw new Error("useAuth must be used within an AuthProvider");
   }
-  return context
-}
+  return context;
+};
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [token, setToken] = useState(localStorage.getItem("token"))
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [token, setToken] = useState(localStorage.getItem("token"));
 
   // Configure axios defaults
   useEffect(() => {
     if (token) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     } else {
-      delete axios.defaults.headers.common["Authorization"]
+      delete axios.defaults.headers.common["Authorization"];
     }
-  }, [token])
+  }, [token]);
 
   // Check if user is logged in on app start
   useEffect(() => {
     const checkAuth = async () => {
       if (token) {
         try {
-          const response = await axios.get(`${process.env.REACT_APP_API_URL}/auth/me`)
-          setUser(response.data.user)
+          const response = await axios.get(
+            `${process.env.REACT_APP_API_URL}/auth/me`
+          );
+          setUser(response.data.user);
         } catch (error) {
-          console.error("Auth check failed:", error)
-          logout()
+          console.error("Auth check failed:", error);
+          logout();
         }
       }
-      setLoading(false)
-    }
+      setLoading(false);
+    };
 
-    checkAuth()
-  }, [token])
+    checkAuth();
+  }, [token]);
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, {
-        email,
-        password,
-      })
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/auth/login`,
+        {
+          email,
+          password,
+        }
+      );
 
-      const { token: newToken, user: userData } = response.data
+      const { token: newToken, user: userData } = response.data;
 
-      localStorage.setItem("token", newToken)
-      setToken(newToken)
-      setUser(userData)
+      localStorage.setItem("token", newToken);
+      setToken(newToken);
+      setUser(userData);
 
-      
-      return { success: true }
+      return { success: true };
     } catch (error) {
-      const message = error.response?.data?.message || "Login failed"
-      toast.error(message)
-      return { success: false, message }
+      const message = error.response?.data?.message || "Login failed";
+      return { success: false, message };
     }
-  }
+  };
 
   const register = async (userData) => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/register`, userData)
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/auth/register`,
+        userData
+      );
 
-      const { token: newToken, user: newUser } = response.data
+      const { token: newToken, user: newUser } = response.data;
 
-      localStorage.setItem("token", newToken)
-      setToken(newToken)
-      setUser(newUser)
+      localStorage.setItem("token", newToken);
+      setToken(newToken);
+      setUser(newUser);
 
-      
-      return { success: true }
+      return { success: true };
     } catch (error) {
-      const message = error.response?.data?.message || "Registration failed"
-      toast.error(message)
-      return { success: false, message }
+      const message = error.response?.data?.message || "Registration failed";
+      toast.error(message);
+      return { success: false, message };
     }
-  }
+  };
 
   const logout = () => {
-    localStorage.removeItem("token")
-    setToken(null)
-    setUser(null)
-    delete axios.defaults.headers.common["Authorization"]
-    toast.info("Logged out successfully")
-  }
+    localStorage.removeItem("token");
+    setToken(null);
+    setUser(null);
+    delete axios.defaults.headers.common["Authorization"];
+    toast.info("Logged out successfully");
+  };
+  const forgotPassword = async (email) => {
+    const response = await fetch("/api/auth/forgot-password", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.message || "Failed to send reset email");
+    }
+    return data;
+  };
+
+  const resetPassword = async (token, newPassword) => {
+    const response = await fetch("/api/auth/reset-password", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token, newPassword }),
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.message || "Failed to reset password");
+    }
+    return data;
+  };
 
   const updateProfile = async (profileData) => {
     try {
-      const response = await axios.put(`${process.env.REACT_APP_API_URL}/auth/profile`, profileData)
-      setUser(response.data.user)
-      toast.success("Profile updated successfully!")
-      return { success: true }
+      const response = await axios.put(
+        `${process.env.REACT_APP_API_URL}/auth/profile`,
+        profileData
+      );
+      setUser(response.data.user);
+      toast.success("Profile updated successfully!");
+      return { success: true };
     } catch (error) {
-      const message = error.response?.data?.message || "Profile update failed"
-      toast.error(message)
-      return { success: false, message }
+      const message = error.response?.data?.message || "Profile update failed";
+      toast.error(message);
+      return { success: false, message };
     }
-  }
+  };
 
   const isAuthenticated = () => {
-    return !!user && !!token
-  }
+    return !!user && !!token;
+  };
 
   const isAdmin = () => {
-    return user?.role === "ADMIN"
-  }
+    return user?.role === "ADMIN";
+  };
 
   const value = {
     user,
@@ -124,10 +159,12 @@ export const AuthProvider = ({ children }) => {
     login,
     register,
     logout,
+    forgotPassword,
+    resetPassword,
     updateProfile,
     isAuthenticated,
     isAdmin,
-  }
+  };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
-}
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+};

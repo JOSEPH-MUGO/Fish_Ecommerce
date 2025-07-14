@@ -2,6 +2,7 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   FiPlus,
   FiEdit,
@@ -21,12 +22,14 @@ import {
 import axios from "axios";
 import { toast } from "react-toastify";
 import ImageUpload from "../components/ImageUpload";
+import { useAuth } from "../contexts/AuthContext"
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState("overview");
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
   const [users, setUsers] = useState([]);
+  const { logout } = useAuth()
   const [stats, setStats] = useState({
     totalProducts: 0,
     totalOrders: 0,
@@ -41,6 +44,8 @@ const AdminDashboard = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const navigate = useNavigate()
+ 
 
   // Search states
   const [searchRecentOrders, setSearchRecentOrders] = useState("");
@@ -390,6 +395,12 @@ const AdminDashboard = () => {
     setProductForm((prev) => ({ ...prev, mainImage: image }));
   };
 
+  const handleLogout = () => {
+    logout()
+    navigate("/")
+  }
+  
+
   // Get filtered data
   const filteredRecentOrders = filterRecentOrders(orders);
   const filteredProducts = filterProducts(products);
@@ -484,7 +495,7 @@ const AdminDashboard = () => {
         </nav>
 
         <div className="absolute bottom-0 w-full p-4  border-gray-700">
-          <button className="flex items-center space-x-3 text-gray-300 hover:text-white w-full">
+          <button className="flex items-center space-x-3 text-gray-300 hover:text-white w-full" onClick={handleLogout}>
             <FiLogOut className="h-5 w-5" />
             {sidebarOpen && <span>Logout</span>}
           </button>
