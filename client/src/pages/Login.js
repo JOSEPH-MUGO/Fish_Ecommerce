@@ -231,11 +231,6 @@ const Login = () => {
                 )}
               </button>
             </div>
-
-            <div className="text-center text-sm text-gray-600 mt-4">
-              <p>Demo Admin: admin@fishstore.com</p>
-              <p>Password: admin123</p>
-            </div>
           </form>
         </div>
       </div>

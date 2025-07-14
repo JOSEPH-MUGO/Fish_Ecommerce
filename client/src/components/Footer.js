@@ -124,7 +124,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-gray-400 text-sm">© {new Date().getFullYear()} FreshCatch. All rights reserved.</p>
+            <p className="text-gray-400 text-sm">© {new Date().getFullYear()} FreshCatch. All rights reserved. <span> Developed with passion by <Link to="https://github.com/JOSEPH-MUGO/" className="text-green-400 hover:text-blue-300 transition-colors text-sm font-medium" >JOSEPH-MUGO</Link></span></p>
             <div className="flex items-center space-x-6">
               <Link to="/shop" className="text-gray-400 hover:text-blue-400 transition-colors text-sm">
                 Catalog
