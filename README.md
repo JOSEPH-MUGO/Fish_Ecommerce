@@ -2,22 +2,22 @@
 
 A complete Web e-commerce platform for selling fresh fish and seafood, built with React.js, Node.js, and PostgreSQL.
 
-## Features
+## System Features
 
 ### Customer Features
-- ✅ **Home Page** - Attractive landing page with featured products and promotions
-- ✅ **Shop Page** - Browse products with filters (category, price, search)
-- ✅ **Product Details** - Detailed product information with images and specifications
-- ✅ **Shopping Cart** - Add/remove items, update quantities
-- ✅ **Checkout System** - Secure checkout with delivery details
-- ✅ **Order Management** - View order history and status in tabular format
-- ✅ **User Authentication** - Register, login, reset password
-- ✅ **Contact Page** - Contact form and business information
-- ✅ **Responsive Design** - Mobile-friendly across all devices
+- ✅ **Home Page** - Attractive landing page with featured products and promotions ![Landing page](https://res.cloudinary.com/djdalpfdh/image/upload/v1752502557/LandP_pscfhl.png)
+- ✅ **Shop Page** - Browse products with filters (category, price, search) ![Shop page](https://res.cloudinary.com/djdalpfdh/image/upload/v1752502557/shop_x07zx5.png)
+- ✅ **Product Details** - Detailed product information with images and specifications![Product](https://res.cloudinary.com/djdalpfdh/image/upload/v1752502557/productD_ktisaf.png)
+- ✅ **Shopping Cart** - Add/remove items, update quantities![cart](https://res.cloudinary.com/djdalpfdh/image/upload/v1752503490/cart_dqprli.png)
+- ✅ **Checkout System** - Secure checkout with delivery details![checkout](https://res.cloudinary.com/djdalpfdh/image/upload/v1752503489/checkout_jphstg.png)
+- ✅ **Order Management** - View order history and status in tabular format![order](https://res.cloudinary.com/djdalpfdh/image/upload/v1752503489/order_vkgxpn.png)
+- ✅ **User Authentication** - Register, login, reset password![auth](https://res.cloudinary.com/djdalpfdh/image/upload/v1752504023/login_nbrt9b.png)
+- ✅ **Contact Page** - Contact form and business information![contact](https://res.cloudinary.com/djdalpfdh/image/upload/v1752503490/contact_h7sy8t.png)
+- ✅ **Responsive Design** - Mobile-friendly across all devices![responsive](https://res.cloudinary.com/djdalpfdh/image/upload/v1752504293/phone_gqqi6q.png)
 
 ### Admin Features
-- ✅ **Admin Dashboard** - Comprehensive admin panel with sidebar navigation
-- ✅ **Product Management** - Add, edit, delete products with image upload
+- ✅ **Admin Dashboard** - Comprehensive admin panel with sidebar navigation![admin](https://res.cloudinary.com/djdalpfdh/image/upload/v1752502555/AdminD_e22enq.png)
+- ✅ **Product Management** - Add, edit, delete products with image upload![product](https://res.cloudinary.com/djdalpfdh/image/upload/v1752502556/product_gz6wso.png)
 - ✅ **Order Management** - View and update order status with pagination
 - ✅ **User Management** - View customer information and statistics
 - ✅ **Category Management** - Organize products into categories
