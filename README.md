@@ -16,7 +16,7 @@ With features like JWT authentication, Cloudinary image handling and Prisma ORM 
 - ✅ **User Authentication** - Register, login, reset password![auth](https://res.cloudinary.com/djdalpfdh/image/upload/v1752504023/login_nbrt9b.png)
 - ✅ **Contact Page** - Contact form and business information![contact](https://res.cloudinary.com/djdalpfdh/image/upload/v1752503490/contact_h7sy8t.png)
 - ✅ **Responsive Design** - Mobile-friendly across all devices![responsive](https://res.cloudinary.com/djdalpfdh/image/upload/v1752504293/phone_gqqi6q.png)
-- ✅ **Interactive Google Map** - Google map for physical shop location![map] (https://res.cloudinary.com/djdalpfdh/image/upload/v1753088498/map_hursdy.png) 
+- ✅ **Interactive Google Map** - Google map for physical shop location![map](https://res.cloudinary.com/djdalpfdh/image/upload/v1753088498/map_hursdy.png) 
 
 ### Admin Features
 - ✅ **Admin Dashboard** - Comprehensive admin panel with sidebar navigation![admin](https://res.cloudinary.com/djdalpfdh/image/upload/v1752502555/AdminD_e22enq.png)
