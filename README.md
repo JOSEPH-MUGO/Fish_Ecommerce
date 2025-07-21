@@ -1,6 +1,8 @@
 # Fish E-commerce Platform
 
-A complete Web e-commerce platform for selling fresh fish and seafood, built with React.js, Node.js, and PostgreSQL.
+Fish E-commerce Platform is a full-featured web application designed to streamline the buying and selling of fresh fish and seafood. Built with React.js, Node.js, and PostgreSQL, the platform provides a seamless experience for both customers and administrators.
+Customers can easily browse products, add items to their cart, securely checkout and track their orders, all within a mobile-responsive UI. Admins enjoy a powerful dashboard for managing products, orders, users and analytics.
+With features like JWT authentication, Cloudinary image handling and Prisma ORM this platform is optimized for performance, security and scalability. it is ideal for local markets, fisheries, or seafood vendors looking to go digital. currently no payment gateway integrated
 
 ## System Features
 
@@ -14,6 +16,7 @@ A complete Web e-commerce platform for selling fresh fish and seafood, built wit
 - ✅ **User Authentication** - Register, login, reset password![auth](https://res.cloudinary.com/djdalpfdh/image/upload/v1752504023/login_nbrt9b.png)
 - ✅ **Contact Page** - Contact form and business information![contact](https://res.cloudinary.com/djdalpfdh/image/upload/v1752503490/contact_h7sy8t.png)
 - ✅ **Responsive Design** - Mobile-friendly across all devices![responsive](https://res.cloudinary.com/djdalpfdh/image/upload/v1752504293/phone_gqqi6q.png)
+- ✅ **Interactive Google Map** - Google map for physical shop location![map] (https://res.cloudinary.com/djdalpfdh/image/upload/v1753088498/map_hursdy.png) 
 
 ### Admin Features
 - ✅ **Admin Dashboard** - Comprehensive admin panel with sidebar navigation![admin](https://res.cloudinary.com/djdalpfdh/image/upload/v1752502555/AdminD_e22enq.png)
